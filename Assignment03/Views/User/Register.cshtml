@@ -1,0 +1,70 @@
+﻿@model DAL.Models.User
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    <title>Register as User</title>
+</head>
+<body>
+    <div style="padding: 20px; width: 600px; height: 400px; ">
+        @using (Html.BeginForm())
+        {
+            <table>
+                <tr>
+                    <th> </th>
+                    <td>
+                        <h5>Image Preview</h5><br>
+                        <img class="headshot" id="image_prev" src="#" /><br>
+                        <h5>Your Profile Pic</h5>
+                        <input type="file" id="user_image" name="user_image" accept="image">
+                    </td>
+                </tr>
+                <tr>
+                    <th>@Html.Label("User Name: ")</th>
+                    <td>
+                        @Html.TextBoxFor(model => model.Name, new { placeholder = "User Name", @class = "form-input" })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>@Html.Label("Email Address: ")</th>
+                    <td>
+                        @Html.TextBoxFor(model => model.Email, new { placeholder = "Email Id", @class = "form-input" })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>@Html.Label("Password: ")</th>
+                    <td>
+                        @Html.PasswordFor(model => model.Password, new { placeholder = "Password", @class = "form-input" })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>@Html.Label("Confirmed Password: ")</th>
+                    <td>
+                        @Html.PasswordFor(model => model.Password2, new { placeholder = "Confirmed Password", @class = "form-input" })
+                        @Html.ValidationMessageFor(model => model.Password2, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+            </table>
+            <button type="submit" class="btn-primary" style="float:right; border-radius: 10%">Submit</button>
+        }
+        <script>
+            user_image.onchange = evt => {
+                const [file] = user_image.files
+                if (file) {
+                    image_prev.src = URL.createObjectURL(file)
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>
